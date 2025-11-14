@@ -1,0 +1,24 @@
+stages:
+  data_load:
+    cmd: python data_loader.py
+    deps:
+      - data_loader.py
+      - params.yaml
+    outs:
+      - data/processed/X_train.csv
+      - data/processed/X_test.csv
+      - data/processed/y_train.csv
+      - data/processed/y_test.csv
+      - ddm/preprocessor.joblib
+  train:
+    cmd: python train_model.py
+    deps:
+      - train_model.py
+      - params.yaml
+      - data/processed/X_train.csv
+      - data/processed/X_test.csv
+      - data/processed/y_train.csv
+      - data/processed/y_test.csv
+    outs:
+      - models/
+      - mlruns/
