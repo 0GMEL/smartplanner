@@ -1,24 +1,36 @@
-stages:
-  data_load:
-    cmd: python data_loader.py
-    deps:
-      - data_loader.py
-      - params.yaml
-    outs:
-      - data/processed/X_train.csv
-      - data/processed/X_test.csv
-      - data/processed/y_train.csv
-      - data/processed/y_test.csv
-      - ddm/preprocessor.joblib
-  train:
-    cmd: python train_model.py
-    deps:
-      - train_model.py
-      - params.yaml
-      - data/processed/X_train.csv
-      - data/processed/X_test.csv
-      - data/processed/y_train.csv
-      - data/processed/y_test.csv
-    outs:
-      - models/
-      - mlruns/
+experiments:
+  lgbm:
+    objective: regression
+    learning_rate: 0.14873007683156203
+    num_leaves: 1471
+    max_depth: 3
+    min_data_in_leaf: 47
+    feature_fraction: 0.7009097845080183
+    bagging_fraction: 0.5501776629655242
+    bagging_freq: 6
+    early_stopping_rounds: 50
+    num_boost_round: 1000
+    lambda_l1: 8.721910319282314
+    lambda_l2: 0.009611680406246492
+
+  xgb:
+    learning_rate: 0.2143351043348231
+    eta: 0.05
+    max_depth: 14
+    subsample: 0.4784486972063805
+    colsample_bytree: 0.8742657521511471
+    early_stopping_rounds: 50
+    num_boost_round: 1000
+    gamma: 0.0006758122699025981
+    reg_alpha: 5.709506496943098
+    reg_lambda: 7.100668591313797
+    min_child_weight: 77
+
+  catboost:
+    iterations: 1000
+    learning_rate: 0.05
+    depth: 6
+    l2_leaf_reg: 3
+    loss_function: RMSE
+    early_stopping_rounds: 50
+    random_seed: 42

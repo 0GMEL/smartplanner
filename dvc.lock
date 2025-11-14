@@ -1,0 +1,83 @@
+schema: '2.0'
+stages:
+  data_load:
+    cmd: python data_loader.py
+    deps:
+    - path: data_loader.py
+      hash: md5
+      md5: 4533a4baa0537d2a02b551e053e2df63
+      size: 3755
+    - path: params.yaml
+      hash: md5
+      md5: bb3726278a43f94131257ae61dd4d0fc
+      size: 874
+    outs:
+    - path: data/processed/X_train.csv
+      hash: md5
+      md5: d2e035ad3038e8c62520d9c093d2fed1
+      size: 17750806
+    - path: data/processed/X_valid.csv
+      hash: md5
+      md5: 2ae7e0038382bfa1d9fa00e324e20c96
+      size: 4438865
+    - path: data/processed/y_duration_train.csv
+      hash: md5
+      md5: 59706416a2190e3923b1fbaa4791d049
+      size: 641770
+    - path: data/processed/y_duration_valid.csv
+      hash: md5
+      md5: 0a5aeed6d0776cb6a1561feec2728888
+      size: 160469
+    - path: data/processed/y_fatigue_train.csv
+      hash: md5
+      md5: df3903a0cf257bd290831a25b9982f96
+      size: 640361
+    - path: data/processed/y_fatigue_valid.csv
+      hash: md5
+      md5: 6ab99133ff179cfa30bbd540f8546538
+      size: 160098
+    - path: ddm/ordinal_encoder.joblib
+      hash: md5
+      md5: a92553560a6d231cc7069ad17d2ede93
+      size: 14159
+  train:
+    cmd: python train_model.py
+    deps:
+    - path: data/processed/X_train.csv
+      hash: md5
+      md5: d2e035ad3038e8c62520d9c093d2fed1
+      size: 17750806
+    - path: data/processed/X_valid.csv
+      hash: md5
+      md5: 2ae7e0038382bfa1d9fa00e324e20c96
+      size: 4438865
+    - path: data/processed/y_duration_train.csv
+      hash: md5
+      md5: 59706416a2190e3923b1fbaa4791d049
+      size: 641770
+    - path: data/processed/y_duration_valid.csv
+      hash: md5
+      md5: 0a5aeed6d0776cb6a1561feec2728888
+      size: 160469
+    - path: data/processed/y_fatigue_train.csv
+      hash: md5
+      md5: df3903a0cf257bd290831a25b9982f96
+      size: 640361
+    - path: data/processed/y_fatigue_valid.csv
+      hash: md5
+      md5: 6ab99133ff179cfa30bbd540f8546538
+      size: 160098
+    - path: params.yaml
+      hash: md5
+      md5: bb3726278a43f94131257ae61dd4d0fc
+      size: 874
+    - path: train_model.py
+      hash: md5
+      md5: 8f48b0f45f7267568ecd83f781913ce3
+      size: 4053
+    outs:
+    - path: mods/
+      hash: md5
+      md5: f43f4f4c44d42517e921006318ca3e15.dir
+      size: 3251243
+      nfiles: 6

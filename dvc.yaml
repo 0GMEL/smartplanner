@@ -1,0 +1,27 @@
+stages:
+  data_load:
+    cmd: python data_loader.py
+    deps:
+      - data_loader.py
+      - params.yaml
+    outs:
+      - data/processed/X_train.csv
+      - data/processed/X_valid.csv
+      - data/processed/y_duration_train.csv
+      - data/processed/y_duration_valid.csv
+      - data/processed/y_fatigue_train.csv
+      - data/processed/y_fatigue_valid.csv
+      - ddm/ordinal_encoder.joblib
+  train:
+    cmd: python train_model.py
+    deps:
+      - train_model.py
+      - params.yaml
+      - data/processed/X_train.csv
+      - data/processed/X_valid.csv
+      - data/processed/y_duration_train.csv
+      - data/processed/y_duration_valid.csv
+      - data/processed/y_fatigue_train.csv
+      - data/processed/y_fatigue_valid.csv
+    outs:
+      - mods/

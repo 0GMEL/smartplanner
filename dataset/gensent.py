@@ -165,18 +165,6 @@ def generate_task(user_id, task_num):
     fatigue_level = round(np.clip(np.random.normal(loc=fatigue_base, scale=1.5), 0, 10), 1)
     focus_level = round(np.clip(np.random.normal(loc=focus_base, scale=1.5), 0, 10), 1)
 
-    # Productivity: улучшенная формула с шумом для реализма
-    # Базовая: (planned / actual) * (focus/10) * (1 - fatigue/10)
-    # + Коррекция на priority (выше приоритет — выше productivity)
-    # + Коррекция на days_to_deadline (ближе дедлайн — ниже, если >0; просрочка — сильно ниже)
-    days_to_deadline = (deadline - now).days
-    deadline_factor = 1.0 if days_to_deadline > 7 else max(0.5, 1 - abs(days_to_deadline) / 10)
-    if days_to_deadline < 0:
-        deadline_factor *= 0.7  # Штраф за просрочку
-
-    base_prod = (planned_duration / actual_duration) * (focus_level / 10) * (1 - fatigue_level / 10)
-    productivity = round(
-        np.clip(base_prod * (1 + priority * 0.05) * deadline_factor + np.random.uniform(-0.1, 0.1), 0.01, 1.0), 2)
 
     return {
         "user_id": user_id,
@@ -190,7 +178,6 @@ def generate_task(user_id, task_num):
         "fatigue_level": fatigue_level,
         "focus_level": focus_level,
         "priority": priority,
-        "productivity": productivity
     }
 
 
@@ -220,8 +207,8 @@ assert len(df['task_id'].unique()) == NUM_TASKS, "Дубликаты task_id!"
 # ------------------------------
 # Сохраняем CSV
 # ------------------------------
-df.to_csv("models/dataset.csv", index=False)
-print("Готов CSV: dataset.csv")
+df.to_csv("datas.csv", index=False)
+print("Готов CSV: datas.csv")
 print("Количество строк:", len(df))
 print("Количество уникальных пользователей:", len(df['user_id'].unique()))
 print("Количество уникальных категорий:", len(df['category'].unique()))
