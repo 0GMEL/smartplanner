@@ -1,7 +1,7 @@
 1. Клонировать проект
 
 ```bash
-git clone <https://github.com/0GMEL/smartplanner.git>
+git clone https://github.com/0GMEL/smartplanner.git
 cd smartplanner
 ```
 
