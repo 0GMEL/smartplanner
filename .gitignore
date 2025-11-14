@@ -2,3 +2,6 @@
 /ddm
 /data
 .idea
+/catboost_info
+.venv
+.dvc
